@@ -4,6 +4,8 @@ import { Platform, StyleSheet } from "react-native";
 
 import EditScreenInfo from "../components/EditScreenInfo";
 import { Text, View } from "../components/Themed";
+import ListCard from "../components/ListCard";
+import { currentData } from "../constants/data";
 
 export default function ModalScreen() {
 	return (
@@ -14,9 +16,7 @@ export default function ModalScreen() {
 				lightColor="#eee"
 				darkColor="rgba(255,255,255,0.1)"
 			/>
-			<View>
-				<Text>this is me</Text>
-			</View>
+			<ListCard item={currentData} />
 			<StatusBar style={Platform.OS === "ios" ? "light" : "auto"} />
 		</View>
 	);
