@@ -7,7 +7,10 @@ import {
 import { useFonts } from "expo-font";
 import { SplashScreen, Stack } from "expo-router";
 import { useEffect } from "react";
-import { View, useColorScheme, Text } from "react-native";
+import { View, useColorScheme, Text, AppRegistry } from "react-native";
+import { expo } from "../app.json";
+import { PaperProvider } from "react-native-paper";
+const appName = expo.name;
 
 export {
 	// Catch any errors thrown by the Layout component.
@@ -51,24 +54,23 @@ function RootLayoutNav() {
 
 	return (
 		<ThemeProvider value={colorScheme === "dark" ? DarkTheme : DefaultTheme}>
-			<Stack>
-				{/* <Stack.Screen name="(tabs)" options={{ headerShown: false }} /> */}
-				{/* <Stack.Screen name="(tabs)" options={{ headerShown: false }} /> */}
-				<Stack.Screen
-					name="login"
-					options={{
-						headerShown: false,
-					}}
-				/>
-				<Stack.Screen
-					name="modal"
-					options={{
-						presentation: "modal",
-						animation: "simple_push",
-						animationDuration: 200,
-					}}
-				/>
-			</Stack>
+			<PaperProvider>
+				<Stack>
+					<Stack.Screen name="(signup)" options={{ headerShown: false }} />
+					{/* <Stack.Screen name="(tabs)" options={{ headerShown: false }} /> */}
+
+					<Stack.Screen
+						name="modal"
+						options={{
+							presentation: "modal",
+							animation: "simple_push",
+							animationDuration: 200,
+						}}
+					/>
+				</Stack>
+			</PaperProvider>
 		</ThemeProvider>
 	);
 }
+
+AppRegistry.registerComponent(appName, () => RootLayoutNav);

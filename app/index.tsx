@@ -9,7 +9,7 @@ export default function index() {
 	return (
 		<View style={styles.container}>
 			<Text>indsdmdex</Text>
-			<TouchableOpacity onPress={() => router.push("/login")}>
+			<TouchableOpacity onPress={() => router.push("/(signup)/")}>
 				<Text>Prese me</Text>
 			</TouchableOpacity>
 		</View>
