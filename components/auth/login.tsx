@@ -3,15 +3,21 @@ import React from "react";
 import EditScreenInfo from "../../components/EditScreenInfo";
 import { Text } from "../../components/Themed";
 import { TouchableOpacity } from "react-native-gesture-handler";
-import { Link } from "expo-router";
-import { Button, Divider, TextInput } from "react-native-paper";
-import Colors from "../../constants/Colors";
+import { Link, router } from "expo-router";
+import {
+	Button,
+	Divider,
+	TextInput,
+	TouchableRipple,
+} from "react-native-paper";
+import Colors, { brandColor } from "../../constants/Colors";
+import { useNavigation } from "@react-navigation/native";
 
 const placeholholerTextColor = "#666";
 
-export default function login() {
+export default function Login({ navigation }: any) {
 	const textInputProps = {
-		placeholderTextColor: { placeholholerTextColor },
+		placeholderTextColor: placeholholerTextColor,
 		style: { ...styles.TextInput },
 		mode: "outlined",
 		outlineColor: "#333",
@@ -29,14 +35,19 @@ export default function login() {
 				{...(textInputProps as any)}
 			/>
 
-			<Button
-				style={{ ...styles.button, marginBottom: 10 }}
-				mode="contained"
-				textColor="#ccc"
-			>
-				Login
-			</Button>
-			<Text style={{ textAlign: "right" }}>Forget Password?</Text>
+			<TouchableRipple>
+				<Button
+					style={{ ...styles.button, marginBottom: 10 }}
+					onPress={() => router.replace("/(home)/")}
+					mode="contained"
+					textColor="#ccc"
+				>
+					Login
+				</Button>
+			</TouchableRipple>
+			<Text style={{ textAlign: "right", marginBottom: 30 }}>
+				Forget Password?
+			</Text>
 			<View
 				style={{
 					flexDirection: "row",
@@ -62,7 +73,7 @@ export default function login() {
 					mode="outlined"
 					icon="google"
 					style={{
-						backgroundColor: Colors.dark.background,
+						backgroundColor: brandColor.bg,
 						borderRadius: 5,
 						flex: 1,
 					}}
@@ -74,7 +85,7 @@ export default function login() {
 					mode="outlined"
 					icon="microsoft"
 					style={{
-						backgroundColor: Colors.dark.background,
+						backgroundColor: brandColor.bg,
 						borderRadius: 5,
 						flex: 1,
 					}}
@@ -93,11 +104,17 @@ export default function login() {
 				}}
 			>
 				<Text>Don't have an Account? </Text>
-				<Link href={"/(signup)/signup"}>
+				{/* <Button
+					textColor="white"
+					onPress={() => navigation.navigate("Sign up")}
+				>
+					ujhgbv
+				</Button> */}
+				{/* <Link >
 					<Text style={{ fontWeight: "bold", ...styles.linkText }}>
 						Sign up
 					</Text>
-				</Link>
+				</Link> */}
 			</View>
 			<View style={{ alignItems: "center", marginTop: 10 }}>
 				<Text>By Using this app you agree with the </Text>
@@ -117,7 +134,7 @@ const styles = StyleSheet.create({
 	},
 	TextInput: {
 		marginTop: 15,
-		backgroundColor: Colors.dark.background,
+		backgroundColor: brandColor.bg,
 	},
 	// ---------------------------------------
 	title: {
@@ -131,7 +148,7 @@ const styles = StyleSheet.create({
 	},
 	button: {
 		// marginBottom: ,
-		backgroundColor: "#075591",
+		backgroundColor: brandColor.app,
 		borderRadius: 10,
 		marginTop: 15,
 	},

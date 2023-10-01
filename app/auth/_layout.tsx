@@ -11,7 +11,7 @@ import {
 import { Pressable, useColorScheme } from "react-native";
 
 import Colors from "../../constants/Colors";
-import { SegmentedButtons, Text } from "react-native-paper";
+import { Appbar, SegmentedButtons, Text } from "react-native-paper";
 import { useEffect, useMemo, useState } from "react";
 import { View } from "../../components/Themed";
 import { useNavigation } from "expo-router";
@@ -29,20 +29,18 @@ function TabBarIcon(props: {
 
 export default function TabLayout() {
 	const colorScheme = useColorScheme();
-	const [value, setValue] = useState<"/(signup)/signup" | "/(signup)/">(
-		"/(signup)/"
-	);
+	const [value, setValue] = useState<"/auth/signup" | "/auth/">("/auth/");
 	const navigation = useGlobalSearchParams();
 	const route = useRoute();
-	// setValue();
+	// setValue("");
 
 	return (
 		<View style={{ flex: 1 }}>
-			<View style={{ marginHorizontal: 30 }}>
+			<View style={{ marginHorizontal: 30, marginTop: 50 }}>
 				<View style={{ flex: 1, alignItems: "center", paddingVertical: 10 }}>
 					<Text style={{ fontSize: 30, alignItems: "center" }}>JIGGY</Text>
 				</View>
-				<SegmentedButtons
+				{/* <SegmentedButtons
 					style={{}}
 					density="small"
 					value={value}
@@ -52,12 +50,12 @@ export default function TabLayout() {
 					}}
 					buttons={[
 						{
-							value: "/(signup)/",
+							value: "/auth/",
 							label: "Sign in",
 						},
-						{ value: "/(signup)/signup", label: "Sign up" },
+						{ value: "/auth/signup", label: "Sign up" },
 					]}
-				/>
+				/> */}
 			</View>
 
 			<Stack screenOptions={{ headerShown: false }}></Stack>

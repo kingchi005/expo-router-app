@@ -6,12 +6,12 @@ import {
 	TextInput,
 	TouchableRipple,
 } from "react-native-paper";
-import Colors from "../../constants/Colors";
-const placeholholerTextColor = "#666";
+import Colors, { brandColor } from "../../constants/Colors";
+// const placeholholerTextColor = "#666";
 
-export default function signup() {
+export default function Signup() {
 	const textInputProps = {
-		placeholderTextColor: { placeholholerTextColor },
+		placeholderTextColor: "#666",
 		style: { ...styles.TextInput },
 		mode: "outlined",
 		outlineColor: "#333",
@@ -43,11 +43,16 @@ export default function signup() {
 				placeholder="Type university"
 				{...(textInputProps as any)}
 			/>
-			{/* <TouchableRipple> */}
-			<Button style={styles.button} mode="contained" textColor="#ccc">
-				Join Now
-			</Button>
-			{/* </TouchableRipple> */}
+			<TouchableRipple>
+				<Button
+					style={styles.button}
+					mode="contained"
+					onPress={() => console.log("signup")}
+					textColor="#ccc"
+				>
+					Join Now
+				</Button>
+			</TouchableRipple>
 			<View
 				style={{
 					flexDirection: "row",
@@ -118,7 +123,7 @@ const styles = StyleSheet.create({
 
 	button: {
 		// marginBottom: ,
-		backgroundColor: "#075591",
+		backgroundColor: brandColor.app,
 		borderRadius: 10,
 		marginTop: 15,
 	},
