@@ -28,7 +28,7 @@ export default function Home() {
 		},
 		{
 			name: "Juan",
-			// picture: "https://picsum.photos/750",
+			picture: "https://picsum.photos/750",
 			school: "Algeria",
 			time: "24h",
 			text: "blood control boy struggle steam from point we mine hurt mostly hour wonderful vast crew anywhere couple lion develop congress cattle inside like lungs",
@@ -49,7 +49,7 @@ export default function Home() {
 		},
 		{
 			name: "Minnie",
-			// picture: "https://picsum.photos/72",
+			picture: "https://picsum.photos/742",
 			school: "Myanmar",
 			time: "25h",
 			text: "eaten moving garage afraid tool grow smell waste strike substance wide person out putting curious prevent remove rising hair daughter curve gently paragraph writer",
@@ -58,7 +58,7 @@ export default function Home() {
 		},
 		{
 			name: "Ryan",
-			// picture: "https://picsum.photos/720",
+			picture: "https://picsum.photos/726",
 			school: "Guam",
 			time: "10h",
 			text: "steady goose orange scientist desert dig ought fire fourth planning changing ran increase refer leaving brought individual battle thank day warn coffee wheel extra",

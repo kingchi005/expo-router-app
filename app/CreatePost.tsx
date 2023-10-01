@@ -1,4 +1,4 @@
-import { StyleSheet, View } from "react-native";
+import { KeyboardAvoidingView, StyleSheet, View } from "react-native";
 import React, { useState } from "react";
 import { Text, customStyles } from "../components/Themed";
 import {
@@ -32,12 +32,9 @@ export default function Notifications() {
 	};
 
 	return (
-		<View>
+		<View style={{ flex: 1 }}>
 			<Appbar.Header
-				style={[
-					customStyles.header,
-					{ borderBottomWidth: 1, borderBottomColor: "#eee" },
-				]}
+				style={[{ borderBottomWidth: 1, borderBottomColor: "#eee" }]}
 			>
 				<IconButton
 					icon={"close"}
@@ -56,24 +53,20 @@ export default function Notifications() {
 				</Button>
 				<Divider />
 			</Appbar.Header>
-			<View
-				style={{
-					marginTop: 60,
-					flexDirection: "column",
-					justifyContent: "center",
-				}}
-			>
-				<View style={{ flexDirection: "column", flex: 1 }}>
-					<TextInput
-						placeholder="Headline {Optional} "
-						placeholderTextColor={brandColor.grey}
-						mode="flat"
-						style={{
-							backgroundColor: brandColor.bg,
-						}}
-						value={headLine}
-						onChangeText={setHeadLine}
-					/>
+			<View style={{ flex: 1 }}>
+				<TextInput
+					placeholder="Headline {Optional} "
+					placeholderTextColor={brandColor.grey}
+					mode="flat"
+					style={{
+						backgroundColor: brandColor.bg,
+					}}
+					value={headLine}
+					onChangeText={setHeadLine}
+				/>
+				<KeyboardAvoidingView
+					style={{ flex: 1, justifyContent: "center", paddingHorizontal: 20 }}
+				>
 					<TextInput
 						multiline
 						placeholder=" Secret crush ? Confession ? Share what's on your mind "
@@ -83,60 +76,58 @@ export default function Notifications() {
 							backgroundColor: brandColor.bg,
 							flex: 1,
 						}}
-						numberOfLines={10}
 						value={post}
 						onChangeText={setPost}
 					/>
-					<View
-						style={{
-							flexDirection: "row",
-							gap: 5,
-							marginTop: 10,
-							justifyContent: "space-around",
-						}}
-					>
-						{["question", "confession", "crush", "dm me", "advise"].map(
-							(item, i) => (
-								<TouchableRipple onPress={() => setBtnToggle(item)}>
-									<Text
-										key={i}
-										// mode="outlined"
-										style={{
-											backgroundColor:
-												btnToggle == item
-													? brandColor[item as keyof typeof brandColor] ||
-													  "#fff"
-													: brandColor.bg,
-											borderRadius: 30,
-											paddingVertical: 3,
-											paddingHorizontal: 10,
-											fontSize: 12,
-											borderWidth: 1,
-											borderColor: brandColor[item as keyof typeof brandColor],
-											color:
-												btnToggle == item
-													? "#eee"
-													: brandColor[item as keyof typeof brandColor],
-										}}
-									>
-										{item.toLocaleUpperCase()}
-									</Text>
-								</TouchableRipple>
-							)
-						)}
-					</View>
-					<ToggleButton.Row
-						onValueChange={(btnToggle) => setBtnToggle(btnToggle)}
-						value={btnToggle}
-					>
-						{
-							// ["question", "confession", "crush", "dm me", "advise"].map(
-							// 	(item) => (
-							// 	)
-							// )
-						}
-					</ToggleButton.Row>
+				</KeyboardAvoidingView>
+				<View
+					style={{
+						flexDirection: "row",
+						gap: 5,
+						marginTop: 10,
+						justifyContent: "space-around",
+					}}
+				>
+					{["question", "confession", "crush", "dm me", "advise"].map(
+						(item, i) => (
+							<TouchableRipple key={i} onPress={() => setBtnToggle(item)}>
+								<Text
+									// mode="outlined"
+									style={{
+										backgroundColor:
+											btnToggle == item
+												? brandColor[item as keyof typeof brandColor] || "#fff"
+												: brandColor.bg,
+										borderRadius: 30,
+										paddingVertical: 3,
+										marginBottom: 10,
+										paddingHorizontal: 10,
+										fontSize: 12,
+										borderWidth: 1,
+										borderColor: brandColor[item as keyof typeof brandColor],
+										color:
+											btnToggle == item
+												? "#eee"
+												: brandColor[item as keyof typeof brandColor],
+									}}
+								>
+									{item.toLocaleUpperCase()}
+								</Text>
+							</TouchableRipple>
+						)
+					)}
 				</View>
+				<ToggleButton.Row
+					onValueChange={(btnToggle) => setBtnToggle(btnToggle)}
+					value={btnToggle}
+				>
+					{
+						// ["question", "confession", "crush", "dm me", "advise"].map(
+						// 	(item) => (
+						// 	)
+						// )
+					}
+				</ToggleButton.Row>
 			</View>
 		</View>
 	);

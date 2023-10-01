@@ -10,10 +10,10 @@ import {
 } from "expo-router";
 import { Pressable, useColorScheme } from "react-native";
 
-import Colors from "../../constants/Colors";
-import { Appbar, SegmentedButtons, Text } from "react-native-paper";
+import Colors, { brandColor } from "../../constants/Colors";
+import { Appbar, Avatar, SegmentedButtons } from "react-native-paper";
 import { useEffect, useMemo, useState } from "react";
-import { View } from "../../components/Themed";
+import { View, Text } from "../../components/Themed";
 import { useNavigation } from "expo-router";
 import { useRoute } from "@react-navigation/native";
 
@@ -36,29 +36,21 @@ export default function TabLayout() {
 
 	return (
 		<View style={{ flex: 1 }}>
-			<View style={{ marginHorizontal: 30, marginTop: 50 }}>
-				<View style={{ flex: 1, alignItems: "center", paddingVertical: 10 }}>
+			<Appbar.Header
+				style={{
+					backgroundColor: brandColor.bg,
+					paddingVertical: 10,
+					marginVertical: 20,
+					justifyContent: "center",
+				}}
+			>
+				<View style={{ alignItems: "center" }}>
 					<Text style={{ fontSize: 30, alignItems: "center" }}>JIGGY</Text>
 				</View>
-				{/* <SegmentedButtons
-					style={{}}
-					density="small"
-					value={value}
-					onValueChange={(e) => {
-						router.push(e as typeof value);
-						setValue(e as typeof value);
-					}}
-					buttons={[
-						{
-							value: "/auth/",
-							label: "Sign in",
-						},
-						{ value: "/auth/signup", label: "Sign up" },
-					]}
-				/> */}
-			</View>
-
-			<Stack screenOptions={{ headerShown: false }}></Stack>
+			</Appbar.Header>
+			<Stack screenOptions={{ headerShown: false }}>
+				<Stack.Screen name="index" />
+			</Stack>
 		</View>
 	);
 }

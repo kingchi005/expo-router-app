@@ -12,6 +12,7 @@ import {
 } from "react-native-paper";
 import Colors, { brandColor } from "../../constants/Colors";
 import { useNavigation } from "@react-navigation/native";
+import { styles } from "../../app/auth";
 
 const placeholholerTextColor = "#666";
 
@@ -123,46 +124,3 @@ export default function Login({ navigation }: any) {
 		</View>
 	);
 }
-
-const styles = StyleSheet.create({
-	container: {
-		flex: 1,
-		flexGrow: 1,
-		// alignItems: "center",
-		paddingHorizontal: 30,
-		justifyContent: "center",
-	},
-	TextInput: {
-		marginTop: 15,
-		backgroundColor: brandColor.bg,
-	},
-	// ---------------------------------------
-	title: {
-		fontSize: 20,
-		fontWeight: "bold",
-	},
-	separator: {
-		marginVertical: 30,
-		height: 1,
-		width: "80%",
-	},
-	button: {
-		// marginBottom: ,
-		backgroundColor: brandColor.app,
-		borderRadius: 10,
-		marginTop: 15,
-	},
-	WloginWith: { flexDirection: "row", gap: 10 },
-	loginWith: {
-		paddingVertical: 8,
-		paddingHorizontal: 38,
-		width: "auto",
-		marginVertical: 5,
-		borderRadius: 5,
-		borderWidth: 1,
-		borderColor: "#99a",
-	},
-	linkText: {
-		color: "#6234e1",
-	},
-});

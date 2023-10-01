@@ -27,11 +27,10 @@ function TabBarIcon(props: {
 export default function TabLayout({}) {
 	const [active, setActive] = useState("");
 	return (
-		<View>
+		<View style={{ flex: 1 }}>
 			<Appbar.Header
-				collapsable
 				theme={{ dark: true }}
-				style={[customStyles.header]}
+				style={[{ backgroundColor: brandColor.bg }]}
 			>
 				<Appbar.Action icon="menu" onPress={() => DrawerActions.openDrawer()} />
 
@@ -59,11 +58,15 @@ export default function TabLayout({}) {
 					}}
 				/>
 			</Appbar.Header>
-			<View style={{ marginTop: 60 }}>
-				<Stack screenOptions={{ headerShown: false }}>
-					<Stack.Screen name="message" />
-				</Stack>
-			</View>
+
+			<Stack
+				screenOptions={{
+					headerShown: false,
+				}}
+			>
+				<Stack.Screen name="message" />
+				<Stack.Screen name="index" />
+			</Stack>
 			<FAB
 				animated
 				onPress={() => router.push("/CreatePost")}
@@ -75,7 +78,7 @@ export default function TabLayout({}) {
 						margin: 16,
 						bottom: 0,
 						right: 0,
-						position: "fixed",
+						position: "absolute",
 						borderRadius: 50,
 					},
 				]}

@@ -7,6 +7,7 @@ import {
 	TouchableRipple,
 } from "react-native-paper";
 import Colors, { brandColor } from "../../constants/Colors";
+import { styles } from "../../app/auth";
 // const placeholholerTextColor = "#666";
 
 export default function Signup() {
@@ -107,28 +108,3 @@ export default function Signup() {
 		</View>
 	);
 }
-
-const styles = StyleSheet.create({
-	container: {
-		flex: 1,
-		flexGrow: 1,
-		// alignItems: "center",
-		paddingHorizontal: 30,
-		justifyContent: "center",
-	},
-	TextInput: {
-		marginTop: 15,
-		backgroundColor: Colors.dark.background,
-	},
-
-	button: {
-		// marginBottom: ,
-		backgroundColor: brandColor.app,
-		borderRadius: 10,
-		marginTop: 15,
-	},
-
-	linkText: {
-		color: "#6234e1",
-	},
-});

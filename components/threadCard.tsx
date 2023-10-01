@@ -94,7 +94,10 @@ export default function ThreadCard({
 			</View>
 			<Text style={{}}>{text}</Text>
 			{picture && (
-				<Card.Cover source={{ uri: `${picture}` }} style={{}}></Card.Cover>
+				<Card.Cover
+					source={{ uri: `${picture}` }}
+					style={{ borderRadius: 0, marginVertical: 10 }}
+				></Card.Cover>
 			)}
 			{polls && (
 				<>
