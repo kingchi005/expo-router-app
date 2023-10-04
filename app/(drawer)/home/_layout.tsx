@@ -1,16 +1,23 @@
 import FontAwesome from "@expo/vector-icons/FontAwesome";
-import { Link, Stack, Tabs, router } from "expo-router";
-import { Pressable, useColorScheme } from "react-native";
-import { View, Text, customStyles } from "../../components/Themed";
-import Home from "../../components/(home)/home";
+import { Link, Stack, Tabs, router, useNavigation } from "expo-router";
+import { Image, Pressable, useColorScheme } from "react-native";
+import { View, Text, customStyles } from "../../../components/Themed";
+import Home from "../../../components/(home)/home";
 
-import Colors, { brandColor } from "../../constants/Colors";
+import Colors, { brandColor } from "../../../constants/Colors";
 import { Appbar, Avatar, FAB } from "react-native-paper";
 import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { useState } from "react";
+// import { Drawer } from "expo-router/drawer";
+import SideBar from "../../../components/SideBar";
+import { Ionicons } from "@expo/vector-icons";
 import { Drawer } from "expo-router/drawer";
-import { DrawerActions } from "@react-navigation/native";
+import {
+	DrawerNavigationProp,
+	DrawerToggleButton,
+} from "@react-navigation/drawer";
+import { DrawerActions, ParamListBase } from "@react-navigation/native";
 
 const TopBarNav = createMaterialTopTabNavigator();
 
@@ -26,35 +33,46 @@ function TabBarIcon(props: {
 
 export default function TabLayout({}) {
 	const [active, setActive] = useState("");
+	const navigation = useNavigation<DrawerNavigationProp<ParamListBase>>();
+
 	return (
 		<View style={{ flex: 1 }}>
 			<Appbar.Header
 				theme={{ dark: true }}
 				style={[{ backgroundColor: brandColor.bg }]}
 			>
-				<Appbar.Action icon="menu" onPress={() => DrawerActions.openDrawer()} />
+				{/* <DrawerToggleButton /> */}
 
-				<TouchableOpacity
-					onPress={() => {
-						console.log("sidebar");
-					}}
+				<Pressable
+					onPress={() => navigation.dispatch(DrawerActions.toggleDrawer())}
 				>
 					<Avatar.Image
 						size={30}
 						style={{ marginHorizontal: 15 }}
-						source={require("../../assets/images/avataaars.svg")}
+						source={require("../../../assets/images/avataaars.svg")}
 					/>
-				</TouchableOpacity>
+				</Pressable>
 				<Appbar.Content
 					titleStyle={[{ fontWeight: "bold", color: brandColor.app }]}
 					theme={{ dark: true }}
 					title={"Home"}
 				/>
+				{/* <LinearTextGradient
+					style={{ fontWeight: "bold", fontSize: 72 }}
+					locations={[0, 1]}
+					colors={["red", "blue"]}
+					start={{ x: 0, y: 0 }}
+					end={{ x: 1, y: 0 }}
+				>
+					THIS IS TEXT GRADIENT
+				</LinearTextGradient> */}
 				<Appbar.Action
-					icon={"bell"}
+					icon={() => (
+						<Ionicons name="notifications-outline" color={"#ccc"} size={25} />
+					)}
 					color="#ccc"
 					onPress={() => {
-						router.push("/Notifications");
+						router.push("/(drawer)/Notifications");
 					}}
 				/>
 			</Appbar.Header>
@@ -63,13 +81,10 @@ export default function TabLayout({}) {
 				screenOptions={{
 					headerShown: false,
 				}}
-			>
-				<Stack.Screen name="message" />
-				<Stack.Screen name="index" />
-			</Stack>
+			></Stack>
 			<FAB
 				animated
-				onPress={() => router.push("/CreatePost")}
+				onPress={() => router.push("/(modals)/CreatePost")}
 				icon="plus"
 				size="small"
 				style={[

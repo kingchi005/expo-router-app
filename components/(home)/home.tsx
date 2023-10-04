@@ -63,6 +63,12 @@ export default function Home() {
 			time: "10h",
 			text: "steady goose orange scientist desert dig ought fire fourth planning changing ran increase refer leaving brought individual battle thank day warn coffee wheel extra",
 			btn: [5.2, 9.82, 82],
+			polls: [
+				{ title: "notice", vote: 68 },
+				{ title: "put", vote: 100 - 34 - 40 },
+				{ title: "cut", vote: 40 },
+				{ title: "naturally", vote: 70 },
+			],
 		},
 	];
 	return (
@@ -82,8 +88,8 @@ export default function Home() {
 const styles = StyleSheet.create({
 	container: {
 		flex: 1,
-		marginHorizontal: 20,
-		marginTop: 15,
+		paddingHorizontal: 10,
+		paddingTop: 15,
 		justifyContent: "center",
 	},
 	title: {

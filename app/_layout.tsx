@@ -55,34 +55,8 @@ function RootLayoutNav() {
 	return (
 		<ThemeProvider value={colorScheme === "dark" ? DarkTheme : DefaultTheme}>
 			<PaperProvider>
-				<Stack>
-					<Stack.Screen name="auth" options={{ headerShown: false }} />
-					<Stack.Screen name="(home)" options={{ headerShown: false }} />
-					<Stack.Screen name="Notifications" options={{ headerShown: false }} />
-
-					{/* <Stack.Screen name="(tabs)" options={{ headerShown: false }} /> */}
-
-					<Stack.Screen
-						name="modal"
-						options={{
-							presentation: "modal",
-							animation: "simple_push",
-							animationDuration: 200,
-						}}
-					/>
-					<Stack.Screen
-						name="CreatePost"
-						options={{
-							headerShown: false,
-							presentation: "modal",
-							animation: "slide_from_bottom",
-							animationDuration: 200,
-						}}
-					/>
-				</Stack>
+				<Stack screenOptions={{ headerShown: false }} />
 			</PaperProvider>
 		</ThemeProvider>
 	);
 }
-
-AppRegistry.registerComponent(appName, () => RootLayoutNav);

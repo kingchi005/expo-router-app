@@ -35,7 +35,7 @@ export default function TabLayout() {
 	// setValue("");
 
 	return (
-		<View style={{ flex: 1 }}>
+		<View style={{ flex: 1, backgroundColor: brandColor.bg }}>
 			<Appbar.Header
 				style={{
 					backgroundColor: brandColor.bg,
@@ -48,8 +48,13 @@ export default function TabLayout() {
 					<Text style={{ fontSize: 30, alignItems: "center" }}>JIGGY</Text>
 				</View>
 			</Appbar.Header>
-			<Stack screenOptions={{ headerShown: false }}>
-				<Stack.Screen name="index" />
+			<Stack
+				screenOptions={{
+					headerShown: false,
+					contentStyle: { backgroundColor: brandColor.bg },
+				}}
+			>
+				{/* <Stack.Screen name="index" /> */}
 			</Stack>
 		</View>
 	);

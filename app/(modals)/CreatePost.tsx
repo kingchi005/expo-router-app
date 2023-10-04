@@ -1,6 +1,6 @@
 import { KeyboardAvoidingView, StyleSheet, View } from "react-native";
 import React, { useState } from "react";
-import { Text, customStyles } from "../components/Themed";
+import { Text, customStyles } from "../../components/Themed";
 import {
 	Appbar,
 	Avatar,
@@ -15,7 +15,7 @@ import {
 import { router } from "expo-router";
 import Icon from "react-native-paper/lib/typescript/components/Icon";
 import { Ionicons } from "@expo/vector-icons";
-import { brandColor } from "../constants/Colors";
+import { brandColor } from "../../constants/Colors";
 
 export default function Notifications() {
 	const [post, setPost] = useState("");
@@ -34,7 +34,13 @@ export default function Notifications() {
 	return (
 		<View style={{ flex: 1 }}>
 			<Appbar.Header
-				style={[{ borderBottomWidth: 1, borderBottomColor: "#eee" }]}
+				style={[
+					{
+						borderBottomWidth: 1,
+						borderBottomColor: "#eee",
+						backgroundColor: brandColor.bg,
+					},
+				]}
 			>
 				<IconButton
 					icon={"close"}
@@ -47,7 +53,7 @@ export default function Notifications() {
 				<Appbar.Content style={{}} title="Create Post" />
 				<Button
 					textColor={`${brandColor.app}`}
-					onPress={() => router.push("/auth")}
+					// onPress={() => router.push("/auth")}
 				>
 					Post
 				</Button>
@@ -65,7 +71,12 @@ export default function Notifications() {
 					onChangeText={setHeadLine}
 				/>
 				<KeyboardAvoidingView
-					style={{ flex: 1, justifyContent: "center", paddingHorizontal: 20 }}
+					style={{
+						flex: 1,
+						justifyContent: "center",
+						paddingHorizontal: 20,
+						backgroundColor: brandColor.bg,
+					}}
 				>
 					<TextInput
 						multiline

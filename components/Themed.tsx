@@ -60,3 +60,45 @@ export const customStyles = StyleSheet.create({
 		width: "100%",
 	},
 });
+
+export const authStyles = StyleSheet.create({
+	container: {
+		// alignItems: "center",
+		paddingHorizontal: 30,
+		justifyContent: "center",
+		marginTop: 20,
+	},
+	TextInput: {
+		marginTop: 15,
+		backgroundColor: brandColor.bg,
+	},
+	// ---------------------------------------
+	title: {
+		fontSize: 20,
+		fontWeight: "bold",
+	},
+	separator: {
+		marginVertical: 30,
+		height: 1,
+		width: "80%",
+	},
+	button: {
+		// marginBottom: ,
+		backgroundColor: brandColor.app,
+		borderRadius: 10,
+		marginTop: 15,
+	},
+	WloginWith: { flexDirection: "row", gap: 10 },
+	loginWith: {
+		paddingVertical: 8,
+		paddingHorizontal: 38,
+		width: "auto",
+		marginVertical: 5,
+		borderRadius: 5,
+		borderWidth: 1,
+		borderColor: "#99a",
+	},
+	linkText: {
+		color: "#6234e1",
+	},
+});

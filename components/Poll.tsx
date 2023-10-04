@@ -14,7 +14,7 @@ export default function Poll({ polls }: { polls: TPoll[] }) {
 			<Text style={{ marginBottom: 5 }}>POLL</Text>
 			{polls.map((poll, i) => (
 				<View key={i}>
-					<TouchableOpacity>
+					<TouchableOpacity activeOpacity={0.7}>
 						<ProgressBar
 							style={{
 								height: 35,

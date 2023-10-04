@@ -4,6 +4,7 @@ import { View } from "../Themed";
 import { StyleSheet } from "react-native";
 import ThreadCard from "../threadCard";
 import { brandColor } from "../../constants/Colors";
+import { ScrollView } from "react-native-gesture-handler";
 
 const posts = [
 	{
@@ -43,22 +44,24 @@ const posts = [
 export default function FUTO() {
 	return (
 		<View style={style.container}>
-			{posts.map((post, i) => (
-				<View
-					key={i}
-					style={[
-						{
-							backgroundColor:
-								brandColor[(post.tag + "Card") as keyof typeof brandColor],
-							padding: 12,
-							borderRadius: 15,
-							marginBottom: 15,
-						},
-					]}
-				>
-					<ThreadCard {...post} />
-				</View>
-			))}
+			<ScrollView showsHorizontalScrollIndicator={false}>
+				{posts.map((post, i) => (
+					<View
+						key={i}
+						style={[
+							{
+								backgroundColor:
+									brandColor[(post.tag + "Card") as keyof typeof brandColor],
+								padding: 12,
+								borderRadius: 15,
+								marginBottom: 15,
+							},
+						]}
+					>
+						<ThreadCard {...post} />
+					</View>
+				))}
+			</ScrollView>
 		</View>
 	);
 }

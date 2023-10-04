@@ -15,29 +15,30 @@ import { TouchableOpacity } from "react-native-gesture-handler";
 import { Ionicons } from "@expo/vector-icons";
 import { brandColor } from "../constants/Colors";
 import Poll, { TPoll } from "./Poll";
-import { Link, router } from "expo-router";
-import Animated from "react-native-reanimated";
+import { router } from "expo-router";
 
 type Tprops = {
 	name: string;
 	school: string;
 	time: String;
 	text: String;
-	btn: number[];
+	likes: number;
 	picture?: string;
 	tag?: string;
 	polls?: TPoll[];
+	onReplyClick: (to: string) => void;
 };
 
-export default function ThreadCard({
+export default function CommentCard({
 	name,
 	school,
 	text,
 	picture,
 	time,
-	btn,
+	likes,
 	tag,
 	polls,
+	onReplyClick,
 }: Tprops) {
 	const [menuVisible, setMenuVisible] = useState(false);
 	const openMenu = () => setMenuVisible(true);
@@ -117,24 +118,10 @@ export default function ThreadCard({
 			</View>
 			<Text style={{}}>{text}</Text>
 			{picture && (
-				<>
-					<Link
-						style={{ marginVertical: 10 }}
-						href={{
-							pathname: "/ViewPictureModal/url",
-							params: { url: picture },
-						}}
-						asChild
-					>
-						<TouchableRipple>
-							<Animated.Image
-								source={{ uri: `${picture}` }}
-								style={{ resizeMode: "contain", width: "100%", height: 380 }}
-								sharedTransitionTag="postPicture"
-							/>
-						</TouchableRipple>
-					</Link>
-				</>
+				<Card.Cover
+					source={{ uri: `${picture}` }}
+					style={{ borderRadius: 0, marginVertical: 10 }}
+				></Card.Cover>
 			)}
 			{polls && (
 				<>
@@ -156,47 +143,29 @@ export default function ThreadCard({
 				style={{
 					flexDirection: "row",
 					alignItems: "flex-end",
-					justifyContent: "space-around",
+					justifyContent: "flex-end",
 					padding: 0,
 				}}
 			>
 				<Button
 					textColor="#eee"
-					icon="heart"
+					icon={() => (
+						<Ionicons name="md-flame-outline" color={"#eee"} size={17} />
+					)}
 					style={{}}
-					onPress={() => console.log("Pressed")}
+					onPress={() => console.log("like")}
 				>
-					<Text>{btn[0]}K</Text>
+					<Text>{likes}K</Text>
 				</Button>
+
 				<Button
-					textColor="#eee"
-					icon="chat"
-					style={{}}
-					onPress={() => router.push("/(modals)/Comments")}
-				>
-					<Text>{btn[1]}K</Text>
-				</Button>
-				<Button
-					textColor="#eee"
-					icon="eye"
-					style={{}}
-					onPress={() => console.log("Pressed")}
-				>
-					<Text>{btn[2]}K</Text>
-				</Button>
-				{/* <Button
-					textColor="#eee"
-					icon="share"
-					style={{ alignSelf: "center" }}
-					onPress={() => console.log("Pressed")}
-				></Button> */}
-				<IconButton
 					// color={"#eee"}
 					icon="share"
-					size={16}
 					style={{ alignSelf: "center" }}
-					onPress={() => console.log("Pressed")}
-				/>
+					onPress={() => onReplyClick(name)}
+				>
+					Reply
+				</Button>
 			</View>
 		</Pressable>
 	);

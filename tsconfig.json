@@ -9,6 +9,8 @@
 		".expo/types/**/*.ts",
 		"expo-env.d.ts",
 		"app/*",
-		"components/(tabs)"
+		"components/(tabs)",
+		"app/(drawer)/home",
+		"app/(modals)/ViewPictureModal"
 	]
 }
