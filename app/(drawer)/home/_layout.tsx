@@ -8,7 +8,7 @@ import Colors, { brandColor } from "../../../constants/Colors";
 import { Appbar, Avatar, FAB } from "react-native-paper";
 import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
 import { TouchableOpacity } from "react-native-gesture-handler";
-import { useState } from "react";
+import { useContext, useState } from "react";
 // import { Drawer } from "expo-router/drawer";
 import SideBar from "../../../components/SideBar";
 import { Ionicons } from "@expo/vector-icons";
@@ -18,6 +18,7 @@ import {
 	DrawerToggleButton,
 } from "@react-navigation/drawer";
 import { DrawerActions, ParamListBase } from "@react-navigation/native";
+import AppDataContext from "../../../context";
 
 const TopBarNav = createMaterialTopTabNavigator();
 
@@ -34,6 +35,8 @@ function TabBarIcon(props: {
 export default function TabLayout({}) {
 	const [active, setActive] = useState("");
 	const navigation = useNavigation<DrawerNavigationProp<ParamListBase>>();
+
+	const { appName, apiKey, userDetails } = useContext(AppDataContext);
 
 	return (
 		<View style={{ flex: 1 }}>

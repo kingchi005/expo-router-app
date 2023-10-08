@@ -10,7 +10,14 @@ import { useEffect } from "react";
 import { View, useColorScheme, Text, AppRegistry } from "react-native";
 import { expo } from "../app.json";
 import { PaperProvider } from "react-native-paper";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import AppDataContext, { AppDataContextProvider } from "../context";
 const appName = expo.name;
+const queryClient = new QueryClient({
+	defaultOptions: {
+		queries: {},
+	},
+});
 
 export {
 	// Catch any errors thrown by the Layout component.
@@ -54,9 +61,13 @@ function RootLayoutNav() {
 
 	return (
 		<ThemeProvider value={colorScheme === "dark" ? DarkTheme : DefaultTheme}>
-			<PaperProvider>
-				<Stack screenOptions={{ headerShown: false }} />
-			</PaperProvider>
+			<AppDataContextProvider>
+				<PaperProvider>
+					<QueryClientProvider client={queryClient}>
+						<Stack screenOptions={{ headerShown: false }} />
+					</QueryClientProvider>
+				</PaperProvider>
+			</AppDataContextProvider>
 		</ThemeProvider>
 	);
 }

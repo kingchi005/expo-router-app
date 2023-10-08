@@ -8,6 +8,7 @@ import { brandColor } from "../../constants/Colors";
 import { Button } from "react-native-paper";
 import { NavigationContainer, useNavigation } from "@react-navigation/native";
 const TopBarNav = createMaterialTopTabNavigator();
+
 export default function index() {
 	return (
 		<View style={{ flex: 1 }}>
@@ -23,7 +24,11 @@ export default function index() {
 				}}
 			>
 				<TopBarNav.Screen name="Sign in" component={Login} />
-				<TopBarNav.Screen name="SIgn up" component={Signup} />
+				<TopBarNav.Screen
+					name="SIgn up"
+					navigationKey="signup"
+					component={Signup}
+				/>
 			</TopBarNav.Navigator>
 		</View>
 	);

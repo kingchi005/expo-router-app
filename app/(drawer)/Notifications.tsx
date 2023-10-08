@@ -7,9 +7,17 @@ import Icon from "react-native-paper/lib/typescript/components/Icon";
 import { Ionicons } from "@expo/vector-icons";
 import { brandColor } from "../../constants/Colors";
 import { ScrollView, TouchableOpacity } from "react-native-gesture-handler";
+import { useQuery } from "@tanstack/react-query";
+import { getPostLists } from "../../apiServices/post";
 
 export default function Notifications() {
 	const [selectedItems, setSelectedItems] = useState<any[]>([]);
+
+	// getPostLists
+	const notificationsQuery = useQuery({
+		queryKey: ["notifications"],
+		queryFn: getPostLists,
+	});
 
 	const handleItemLongPress = (itemIndex: any) => {
 		const updatedSelectedItems = [...selectedItems];
@@ -38,7 +46,10 @@ export default function Notifications() {
 	return (
 		<View>
 			<Appbar.Header style={[{ backgroundColor: brandColor.bg }]}>
-				<Button onPress={(e) => router.back()} textColor={`${brandColor.app}`}>
+				<Button
+					onPress={(e) => router.push("/(drawer)/home/")}
+					textColor={`${brandColor.app}`}
+				>
 					Back
 				</Button>
 				<Appbar.Content color={`${brandColor.app}`} title="Notifications" />

@@ -13,23 +13,26 @@ import {
 import Colors, { brandColor } from "../../constants/Colors";
 import { useNavigation } from "@react-navigation/native";
 import { authStyles } from "./../Themed";
-import z from "zod";
-
+import { loginFormDataSchema } from "../../utils/validation";
+import { useQuery, useMutation } from "@tanstack/react-query";
+import { userLogin } from "../../apiServices/auth";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import { STORE_KEYS } from "../../store";
 const placeholholerTextColor = "#666";
 
-// const ZformData = z.object({
-// 	email: z.string({
-// 		invalid_type_error: "email must be a strng",
-// 		required_error: "email/phone is required",
-// 	}),
-// 	password: z.string({
-// 		required_error: "password is required",
-// 	}),
+// const schema = z.object({
+// 	email: z.string().email(),
+// 	password: z.string().min(6),
 // });
 
-// type TformData = z.infer<typeof ZformData>;
+// Usage example
 
-export default function Login({ navigation }: any) {
+// const formData:TformDate = {
+// 	email: "test@example.com",
+// 	password: "password123",
+// };
+
+export default function Login(props: any) {
 	const [formData, setFormData] = useState<{
 		email: string;
 		password: string;
@@ -39,10 +42,33 @@ export default function Login({ navigation }: any) {
 	});
 
 	const [secureTextEntry, setSecureTextEntry] = useState(true);
+	const { mutate, isLoading } = useMutation({
+		mutationFn: userLogin,
+		onSuccess: async (data) => {
+			console.log(data);
+			if (data.key) {
+				AsyncStorage.setItem(STORE_KEYS.API_AUTH_KEY, data.key).then(() => {
+					router.push("/(drawer)/home/");
+				});
+			}
+		},
+		onError: (err: any) => {
+			console.log("rq", err);
+		},
+	});
+
+	// const navigation = useNavigation();
 
 	const handleSubmit = () => {
-		// const safeInput =
-		console.log(formData);
+		loginFormDataSchema
+			.validate(formData, { abortEarly: false })
+			.then((validatedData) => {
+				console.log("Data is valid:", validatedData);
+				mutate(formData);
+			})
+			.catch((error) => {
+				console.log(error.errors.join(", "));
+			});
 	};
 	const textInputProps = {
 		placeholderTextColor: placeholholerTextColor,
@@ -80,6 +106,7 @@ export default function Login({ navigation }: any) {
 					onPress={handleSubmit}
 					mode="contained"
 					textColor="#ccc"
+					loading={isLoading}
 				>
 					Login
 				</Button>
@@ -141,12 +168,9 @@ export default function Login({ navigation }: any) {
 				}}
 			>
 				<Text>Don't have an Account? </Text>
-				{/* <Button
-					textColor="white"
-					onPress={() => navigation.navigate("Sign up")}
-				>
+				<Button textColor="white" onPress={() => {}}>
 					ujhgbv
-				</Button> */}
+				</Button>
 				{/* <Link >
 					<Text style={{ fontWeight: "bold", ...authStyles.linkText }}>
 						Sign up
