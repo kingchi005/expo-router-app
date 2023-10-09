@@ -8,6 +8,8 @@ interface AppDataContextProps {
 	appName: string;
 	apiKey: string;
 	userDetails: TUser;
+	snackBarVisible: boolean;
+	setSnackBarVisible: React.Dispatch<React.SetStateAction<boolean>>;
 	setUserDetails: React.Dispatch<React.SetStateAction<TUser>>;
 	setApiKey: React.Dispatch<React.SetStateAction<string>>;
 }
@@ -22,6 +24,7 @@ export const AppDataContextProvider: FC<{
 	const [appName, setAppName] = useState("JIGGY");
 	const [apiKey, setApiKey] = useState("");
 	const [userDetails, setUserDetails] = useState({} as TUser);
+	const [snackBarVisible, setSnackBarVisible] = useState(false);
 
 	useEffect(() => {
 		AsyncStorage.getItem(STORE_KEYS.API_AUTH_KEY).then((key) => {
@@ -36,13 +39,13 @@ export const AppDataContextProvider: FC<{
 
 	const checkkUserDetails = () => {
 		if (apiKey)
-			getUserDetails(apiKey).then((data) => {
-				console.log(data);
+			getUserDetails({ apiKey }).then((data) => {
+				console.log("feted uusedd: ", data);
 
-				// if (data) {
-				// 	setUserDetails(data);
-				// 	AsyncStorage.setItem(STORE_KEYS.USER_DETAILS, data);
-				// }
+				if (data?.id > 0) {
+					setUserDetails(data as TUser);
+					AsyncStorage.setItem(STORE_KEYS.USER_DETAILS, JSON.stringify(data));
+				}
 			});
 	};
 	useEffect(() => {
@@ -52,7 +55,15 @@ export const AppDataContextProvider: FC<{
 
 	return (
 		<AppDataContext.Provider
-			value={{ appName, apiKey, userDetails, setUserDetails, setApiKey }}
+			value={{
+				appName,
+				apiKey,
+				userDetails,
+				snackBarVisible,
+				setSnackBarVisible,
+				setUserDetails,
+				setApiKey,
+			}}
 		>
 			{children}
 		</AppDataContext.Provider>

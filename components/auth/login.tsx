@@ -1,5 +1,5 @@
 import { Alert, View } from "react-native";
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import EditScreenInfo from "../../components/EditScreenInfo";
 import { Text } from "../../components/Themed";
 import { TouchableOpacity } from "react-native-gesture-handler";
@@ -18,6 +18,7 @@ import { useQuery, useMutation } from "@tanstack/react-query";
 import { userLogin } from "../../apiServices/auth";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { STORE_KEYS } from "../../store";
+import AppDataContext from "../../context";
 const placeholholerTextColor = "#666";
 
 // const schema = z.object({
@@ -42,6 +43,7 @@ export default function Login(props: any) {
 	});
 
 	const [secureTextEntry, setSecureTextEntry] = useState(true);
+	const { snackBarVisible, setSnackBarVisible } = useContext(AppDataContext);
 	const { mutate, isLoading } = useMutation({
 		mutationFn: userLogin,
 		onSuccess: async (data) => {
@@ -168,7 +170,12 @@ export default function Login(props: any) {
 				}}
 			>
 				<Text>Don't have an Account? </Text>
-				<Button textColor="white" onPress={() => {}}>
+				<Button
+					textColor="white"
+					onPress={() => {
+						setSnackBarVisible(true);
+					}}
+				>
 					ujhgbv
 				</Button>
 				{/* <Link >

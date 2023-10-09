@@ -1,5 +1,5 @@
 import { KeyboardAvoidingView, StyleSheet, View } from "react-native";
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { Text, customStyles } from "../../components/Themed";
 import {
 	Appbar,
@@ -16,19 +16,52 @@ import { router } from "expo-router";
 import Icon from "react-native-paper/lib/typescript/components/Icon";
 import { Ionicons } from "@expo/vector-icons";
 import { brandColor } from "../../constants/Colors";
+import { useMutation } from "@tanstack/react-query";
+import { createPost } from "../../apiServices/post";
+import AppDataContext from "../../context";
+
+type TFormData = {
+	content: string;
+	headLine: string;
+	post_type: string;
+	images: string;
+};
 
 export default function Notifications() {
-	const [post, setPost] = useState("");
-	const [headLine, setHeadLine] = useState("");
+	// const [post, setPost] = useState("");
+	// const [headLine, setHeadLine] = useState("");
 	const [lines, setLines] = useState(30);
 	const [btnToggle, setBtnToggle] = useState("question");
 
 	const calculateHeight = () => {
 		const lineHeight = 20; // Adjust this value based on your font size and line height
-		const lines = Math.ceil(post.length / 40); // Adjust the character count per line as needed
+		const lines = Math.ceil(formData.content.length / 40); // Adjust the character count per line as needed
 		const minHeight = 40; // Adjust this value as the minimum height you want
 		const height = Math.max(minHeight, lines * lineHeight);
 		return height;
+	};
+
+	const [formData, setFormData] = useState<TFormData>({
+		content: "",
+		headLine: "",
+		post_type: "question",
+		images: "",
+	});
+	const { apiKey } = useContext(AppDataContext);
+	const { mutate, isLoading } = useMutation({
+		mutationFn: createPost,
+		onSuccess: async (data) => {
+			console.log(data);
+		},
+		onError: (err: any) => {
+			console.log("rq", err);
+		},
+	});
+
+	const handlePostCreate = () => {
+		console.log(formData);
+		const { headLine, ...data } = formData;
+		mutate({ data, apiKey });
 	};
 
 	return (
@@ -51,10 +84,7 @@ export default function Notifications() {
 					onPress={(e) => router.back()}
 				/>
 				<Appbar.Content style={{}} title="Create Post" />
-				<Button
-					textColor={`${brandColor.app}`}
-					// onPress={() => router.push("/auth")}
-				>
+				<Button textColor={`${brandColor.app}`} onPress={handlePostCreate}>
 					Post
 				</Button>
 				<Divider />
@@ -67,8 +97,10 @@ export default function Notifications() {
 					style={{
 						backgroundColor: brandColor.bg,
 					}}
-					value={headLine}
-					onChangeText={setHeadLine}
+					value={formData.headLine}
+					onChangeText={(headLine) =>
+						setFormData((prev) => ({ ...prev, headLine }))
+					}
 				/>
 				<KeyboardAvoidingView
 					style={{
@@ -87,8 +119,10 @@ export default function Notifications() {
 							backgroundColor: brandColor.bg,
 							flex: 1,
 						}}
-						value={post}
-						onChangeText={setPost}
+						value={formData.content}
+						onChangeText={(content) =>
+							setFormData((prev) => ({ ...prev, content }))
+						}
 					/>
 				</KeyboardAvoidingView>
 				<View
@@ -101,12 +135,17 @@ export default function Notifications() {
 				>
 					{["question", "confession", "crush", "dm me", "advise"].map(
 						(item, i) => (
-							<TouchableRipple key={i} onPress={() => setBtnToggle(item)}>
+							<TouchableRipple
+								key={i}
+								onPress={(content) =>
+									setFormData((prev) => ({ ...prev, post_type: item }))
+								}
+							>
 								<Text
 									// mode="outlined"
 									style={{
 										backgroundColor:
-											btnToggle == item
+											formData.post_type == item
 												? brandColor[item as keyof typeof brandColor] || "#fff"
 												: brandColor.bg,
 										borderRadius: 30,
@@ -117,7 +156,7 @@ export default function Notifications() {
 										borderWidth: 1,
 										borderColor: brandColor[item as keyof typeof brandColor],
 										color:
-											btnToggle == item
+											formData.post_type == item
 												? "#eee"
 												: brandColor[item as keyof typeof brandColor],
 									}}

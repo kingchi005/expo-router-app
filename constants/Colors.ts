@@ -28,9 +28,11 @@ export const brandColor = {
 	questionCard: "#051522",
 	crushCard: "#5E0525",
 	crush: "#F91880",
+	// others: "#FF008A",
+	othersCard: "#B416FE",
 	advise: "#FFD635",
 	"dm me": "green",
-	adviseCard: "#777777",
-	bg: "#080000",
+	adviseCard: "#FFD635",
+	bg: "#000",
 	grey: "#707070",
 };

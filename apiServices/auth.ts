@@ -12,10 +12,11 @@ export const userLogin = async ({ email, password }: TLoginFormDataSchema) => {
 					Authorization: `${apiKey}`,
 					"Content-Type": "application/x-www-form-urlencoded",
 				},
+				credentials: "include",
 				body: `email=${encodeURIComponent(email)}&password=${encodeURIComponent(
 					password
 				)}`,
-				// redirect: "follow",
+				redirect: "follow",
 			}
 		);
 		return await response.json();
@@ -35,7 +36,7 @@ export const userRegister = async (data: TRegFormDataSchema) => {
 					"Content-Type": "application/json",
 				},
 				body: JSON.stringify(data),
-				// redirect: "follow",
+				redirect: "follow",
 			}
 		);
 		return await response.json();
@@ -54,7 +55,7 @@ export const getSchools = async () => {
 					Authorization: `${apiKey}`,
 					// "Content-Type": "application/json",
 				},
-				// redirect: "follow",
+				redirect: "follow",
 			}
 		);
 		return await response.json();

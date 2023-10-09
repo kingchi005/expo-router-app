@@ -12,9 +12,9 @@ export const regFormDataSchema = z.object().shape({
 });
 
 export const createPostSchema = z.object().shape({
-	email: z.string().email().required(),
-	password: z.string().required(),
-	school: z.string().required(),
+	content: z.string().email().required(),
+	post_type: z.string().required(),
+	images: z.string(),
 });
 
 export type TLoginFormDataSchema = z.InferType<typeof loginFormDataSchema>;

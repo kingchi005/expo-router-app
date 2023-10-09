@@ -28,7 +28,7 @@ export default function Home() {
 		queryKey: ["posts", apiKey],
 		queryFn: getPostLists,
 		select(data) {
-			return data.filter((d, i) => i < 20);
+			return data?.filter((d, i) => i < 20);
 		},
 	});
 
