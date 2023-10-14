@@ -1,15 +1,14 @@
 import env from "../env";
 import { TLoginFormDataSchema, TRegFormDataSchema } from "../utils/validation";
-const apiKey = "615bda3fd670c2690206ae7f0a4bcd3a039b3ceb";
 
 export const userLogin = async ({ email, password }: TLoginFormDataSchema) => {
 	try {
 		const response = await fetch(
-			`${env.EXPO_PUBLIC_API_SERVICE_URL}/account/rest-auth/login/?Authorization=${apiKey}`,
+			`${env.EXPO_PUBLIC_API_SERVICE_URL}/account/rest-auth/login/`,
 			{
 				method: "POST",
 				headers: {
-					Authorization: `${apiKey}`,
+					// Authorization: `${}`,
 					"Content-Type": "application/x-www-form-urlencoded",
 				},
 				credentials: "include",
@@ -32,7 +31,7 @@ export const userRegister = async (data: TRegFormDataSchema) => {
 			{
 				method: "POST",
 				headers: {
-					Authorization: `${apiKey}`,
+					// Authorization: `${apiKey}`,
 					"Content-Type": "application/json",
 				},
 				body: JSON.stringify(data),
@@ -52,7 +51,7 @@ export const getSchools = async () => {
 			{
 				method: "GET",
 				headers: {
-					Authorization: `${apiKey}`,
+					// Authorization: `${apiKey}`,
 					// "Content-Type": "application/json",
 				},
 				redirect: "follow",

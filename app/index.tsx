@@ -1,7 +1,7 @@
 import { StyleSheet } from "react-native";
 import { Text, View } from "../components/Themed";
 import { ActivityIndicator, Button, Snackbar } from "react-native-paper";
-import { router } from "expo-router";
+import { Redirect, router } from "expo-router";
 import { STORE_KEYS } from "../store";
 import { useContext, useEffect, useState } from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
@@ -39,38 +39,17 @@ export default function Page() {
 
 	return (
 		<View style={styles.container}>
-			<View style={styles.main}>
-				<Text style={styles.title}>Hello World</Text>
-				<Text style={styles.subtitle}>This is the first page of your app.</Text>
-				{loading ? (
-					<Loading />
-				) : viewedOnboarding ? (
-					apiKey ? (
-						<Button onPress={() => router.push("/(drawer)/home")}>
-							Home page
-						</Button>
-					) : (
-						<Button onPress={() => router.push("/auth/")}>
-							Authentication
-						</Button>
-					)
+			{loading ? (
+				<Loading />
+			) : viewedOnboarding ? (
+				apiKey ? (
+					<Redirect href={"/(drawer)/home"} />
 				) : (
-					<Button onPress={() => router.push("/onboarding/")}>
-						go and onboard
-					</Button>
-				)}
-				<Button
-					onPress={async () => {
-						await AsyncStorage.removeItem(STORE_KEYS.HAS_ONBOARDED);
-						setViewedOnboarding(false);
-					}}
-				>
-					Disboard
-				</Button>
-				<Button onPress={() => router.push("/onboarding/")}>
-					go and onboard
-				</Button>
-			</View>
+					<Redirect href={"/auth/"} />
+				)
+			) : (
+				<Redirect href={"/onboarding/"} />
+			)}
 		</View>
 	);
 }

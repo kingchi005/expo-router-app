@@ -17,6 +17,7 @@ import { brandColor } from "../constants/Colors";
 import Poll, { TPoll } from "./Poll";
 import { Link, router } from "expo-router";
 import Animated from "react-native-reanimated";
+import { formatDate } from "../utils/helpers";
 
 type Tprops = {
 	name: string;
@@ -59,7 +60,8 @@ export default function ThreadCard(post: TPost) {
 								{post?.user?.school?.school_acronym}
 							</Text>
 							<Text style={{ color: "#777", marginStart: 8 }}>
-								{post.created_at}
+								{/* {post.created_at} */}
+								{formatDate(post.created_at)}
 							</Text>
 						</View>
 						<View

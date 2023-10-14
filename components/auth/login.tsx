@@ -43,15 +43,24 @@ export default function Login(props: any) {
 	});
 
 	const [secureTextEntry, setSecureTextEntry] = useState(true);
-	const { snackBarVisible, setSnackBarVisible } = useContext(AppDataContext);
+	const {
+		snackBarVisible,
+		setSnackBarError,
+		setApiKey,
+		initialiseUserDetails,
+	} = useContext(AppDataContext);
 	const { mutate, isLoading } = useMutation({
 		mutationFn: userLogin,
 		onSuccess: async (data) => {
 			console.log(data);
 			if (data.key) {
+				setApiKey(data.key);
+				initialiseUserDetails();
 				AsyncStorage.setItem(STORE_KEYS.API_AUTH_KEY, data.key).then(() => {
 					router.push("/(drawer)/home/");
 				});
+			} else if (data?.non_field_errors) {
+				setSnackBarError(data.non_field_errors);
 			}
 		},
 		onError: (err: any) => {
@@ -173,7 +182,7 @@ export default function Login(props: any) {
 				<Button
 					textColor="white"
 					onPress={() => {
-						setSnackBarVisible(true);
+						// setSnackBarVisible(true);
 					}}
 				>
 					ujhgbv

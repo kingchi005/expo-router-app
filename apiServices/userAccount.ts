@@ -2,8 +2,9 @@ import env from "../env";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { STORE_KEYS } from "../store";
 
-export const getUserDetails = async ({ apiKey }: any) => {
-	console.log("from func: ", apiKey);
+export const getUserDetails = async ({ queryKey }: any) => {
+	const [_, apiKey] = queryKey;
+	// console.log("from func: -----", apiKey);
 
 	try {
 		const response = await fetch(
@@ -11,7 +12,7 @@ export const getUserDetails = async ({ apiKey }: any) => {
 			{
 				method: "GET",
 				headers: {
-					Authorization: `${apiKey}`,
+					Authorization: `Token ${apiKey}`,
 					// "Content-Type": "application/json",
 					"Content-Type": "application/json",
 				},
@@ -19,6 +20,7 @@ export const getUserDetails = async ({ apiKey }: any) => {
 				redirect: "follow",
 			}
 		);
+
 		return await response.json();
 	} catch (error) {
 		return error;

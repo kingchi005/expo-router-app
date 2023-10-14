@@ -26,7 +26,7 @@ export default function Hot() {
 
 	return (
 		<View style={style.container}>
-			<Swiper>
+			{/* <Swiper>
 				{posts &&
 					posts.map((post, i) => (
 						<View
@@ -47,7 +47,7 @@ export default function Hot() {
 							<ThreadCard {...post} />
 						</View>
 					))}
-			</Swiper>
+			</Swiper> */}
 		</View>
 	);
 }

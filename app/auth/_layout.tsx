@@ -34,7 +34,8 @@ export default function TabLayout() {
 	const [value, setValue] = useState<"/auth/signup" | "/auth/">("/auth/");
 	const navigation = useGlobalSearchParams();
 	const route = useRoute();
-	const { snackBarVisible, setSnackBarVisible } = useContext(AppDataContext);
+	const { snackBarVisible, setSnackBarVisible, errMsg } =
+		useContext(AppDataContext);
 
 	const handleSBdismiss = () => {
 		setSnackBarVisible(false);
@@ -92,7 +93,7 @@ export default function TabLayout() {
 					},
 				}}
 			>
-				i am here now just over string
+				{errMsg + "" || "."}
 			</Snackbar>
 		</View>
 	);

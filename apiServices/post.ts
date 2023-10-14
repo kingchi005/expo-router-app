@@ -6,13 +6,14 @@ import { TCreatePostSchema } from "../utils/validation";
 
 export const getPostLists = async ({ queryKey }: any) => {
 	const [_, apiKey] = queryKey;
+
 	try {
 		const response = await fetch(
 			`${env.EXPO_PUBLIC_API_SERVICE_URL}/annon/posts/`,
 			{
 				method: "GET",
 				headers: {
-					Authorization: `${apiKey}`,
+					Authorization: `Token ${apiKey}`,
 					// "Content-Type": "application/json",
 				},
 				// redirect: "follow",
@@ -40,25 +41,25 @@ export const createPost = async ({
 	data: TCreatePostSchema;
 	apiKey: string;
 }) => {
-	// const [_, apiKey] = mutationkey;
-
 	try {
-		const headers = {
-			Authorization: "615bda3fd670c2690206ae7f0a4bcd3a039b3ceb",
-			"Content-Type": "application/x-www-form-urlencoded",
-		};
-
 		const data = new URLSearchParams();
 		data.append("content", formData.content);
 		data.append("post_type", formData.post_type);
 		data.append("images", formData.images!);
 
 		const response = await fetch(
-			"https://jiggybackend.com.ng/annon/posts/create/",
+			`${env.EXPO_PUBLIC_API_SERVICE_URL}/annon/posts/create/`,
 			{
 				method: "POST",
-				headers,
-				body: data,
+				headers: {
+					Authorization: `Token ${apiKey}`,
+					"Content-Type": "application/x-www-form-urlencoded",
+				},
+				body: `content=${encodeURIComponent(
+					formData.content
+				)}&post_type=${encodeURIComponent(
+					formData.post_type
+				)}&images=${encodeURIComponent(formData.images + "")}`,
 				credentials: "include",
 			}
 		);

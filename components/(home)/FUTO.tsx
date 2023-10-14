@@ -59,7 +59,7 @@ export default function FUTO() {
 		},
 	});
 
-	console.log("posts", posts);
+	// console.log("posts", posts);
 	// console.log(error);
 
 	return (

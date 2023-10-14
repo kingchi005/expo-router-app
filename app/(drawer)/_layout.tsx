@@ -13,15 +13,32 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import { STORE_KEYS } from "../../store";
 import { useContext } from "react";
 import AppDataContext from "../../context";
+import { getUserDetails } from "../../apiServices/userAccount";
+import { useQuery } from "@tanstack/react-query";
+
+import { createDrawerNavigator } from "@react-navigation/drawer";
 
 export default function Layout() {
-	const { setApiKey, userDetails } = useContext(AppDataContext);
+	const { setApiKey, apiKey, setUserDetails, userDetails } =
+		useContext(AppDataContext);
 	const logoutUser = () => {
 		AsyncStorage.removeItem(STORE_KEYS.API_AUTH_KEY).then(() => {
 			setApiKey("");
 			router.replace("/auth/");
 		});
 	};
+
+	// const { data: userDetails } = useQuery<TUserDetails>({
+	// 	queryKey: ["user_details", apiKey],
+	// 	queryFn: getUserDetails,
+	// });
+
+	// if (userDetails) {
+	// 	setUserDetails(userDetails);
+	// }
+
+	// console.log(userDetails, apiKey);
+
 	return (
 		<Drawer
 			screenOptions={{ headerShown: false }}
@@ -41,14 +58,19 @@ export default function Layout() {
 							source={{ uri: "https://picsum.photos/750" }}
 						/>
 						<Text style={{ fontSize: 20, marginVertical: 10 }}>
-							{userDetails?.generated_username}
+							{userDetails && userDetails?.user?.generated_username}
 						</Text>
 					</View>
 					<View style={{ marginStart: 20, marginTop: 20, flex: 1 }}>
-						<List.Item
+						{/* <List.Item
 							title="Notification"
 							onPress={() => router.push("/Notifications")}
-						/>
+						/> */}
+						{/* <Drawer.Screen
+							name="Notifications"
+							options={{ drawerLabel: "Home", title: "Home" }}
+						/> */}
+
 						<Divider />
 						<List.Item
 							title="Feedback"

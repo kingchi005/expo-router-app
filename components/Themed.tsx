@@ -101,4 +101,9 @@ export const authStyles = StyleSheet.create({
 	linkText: {
 		color: "#6234e1",
 	},
+	gradientText: {
+		color: "transparent",
+		backgroundColor: "linear-gradient(130deg,blue,red)",
+		backgroundClip: "text",
+	},
 });

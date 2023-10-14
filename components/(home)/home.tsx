@@ -20,9 +20,10 @@ import ThreadCard from "../../components/threadCard";
 import { useQuery } from "@tanstack/react-query";
 import { getPostLists } from "../../apiServices/post";
 import AppDataContext from "../../context";
+import { getUserDetails } from "../../apiServices/userAccount";
 
 export default function Home() {
-	const { apiKey } = useContext(AppDataContext);
+	const { apiKey, setUserDetails } = useContext(AppDataContext);
 
 	const { data: posts, isLoading } = useQuery<TPost[]>({
 		queryKey: ["posts", apiKey],
@@ -31,9 +32,14 @@ export default function Home() {
 			return data?.filter((d, i) => i < 20);
 		},
 	});
+	const { data: userDetails } = useQuery<TUserDetails>({
+		queryKey: ["user_details", apiKey],
+		queryFn: getUserDetails,
+	});
 
-	console.log(posts);
-
+	if (userDetails) {
+		setUserDetails(userDetails);
+	}
 	return (
 		<View style={styles.container}>
 			{isLoading && <ActivityIndicator size={"large"} />}

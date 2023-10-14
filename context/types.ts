@@ -44,3 +44,10 @@ interface TUser {
 	generated_username: string;
 	school: TSchool;
 }
+
+interface TUserDetails {
+	id: number;
+	user: TUser;
+	Level?: any;
+	picture?: any;
+}

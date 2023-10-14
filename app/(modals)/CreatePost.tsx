@@ -44,7 +44,7 @@ export default function Notifications() {
 	const [formData, setFormData] = useState<TFormData>({
 		content: "",
 		headLine: "",
-		post_type: "question",
+		post_type: "Question",
 		images: "",
 	});
 	const { apiKey } = useContext(AppDataContext);
@@ -52,6 +52,7 @@ export default function Notifications() {
 		mutationFn: createPost,
 		onSuccess: async (data) => {
 			console.log(data);
+			router.back();
 		},
 		onError: (err: any) => {
 			console.log("rq", err);
@@ -95,7 +96,7 @@ export default function Notifications() {
 					placeholderTextColor={brandColor.grey}
 					mode="flat"
 					style={{
-						backgroundColor: brandColor.bg,
+						backgroundColor: brandColor.bg!,
 					}}
 					value={formData.headLine}
 					onChangeText={(headLine) =>
@@ -133,7 +134,7 @@ export default function Notifications() {
 						justifyContent: "space-around",
 					}}
 				>
-					{["question", "confession", "crush", "dm me", "advise"].map(
+					{["Question", "Confession", "Crush", "Dm Me", "Advise"].map(
 						(item, i) => (
 							<TouchableRipple
 								key={i}
@@ -146,7 +147,9 @@ export default function Notifications() {
 									style={{
 										backgroundColor:
 											formData.post_type == item
-												? brandColor[item as keyof typeof brandColor] || "#fff"
+												? brandColor[
+														item.toLocaleLowerCase() as keyof typeof brandColor
+												  ] || "#fff"
 												: brandColor.bg,
 										borderRadius: 30,
 										paddingVertical: 3,
@@ -154,11 +157,16 @@ export default function Notifications() {
 										paddingHorizontal: 10,
 										fontSize: 12,
 										borderWidth: 1,
-										borderColor: brandColor[item as keyof typeof brandColor],
+										borderColor:
+											brandColor[
+												item.toLocaleLowerCase() as keyof typeof brandColor
+											],
 										color:
 											formData.post_type == item
 												? "#eee"
-												: brandColor[item as keyof typeof brandColor],
+												: brandColor[
+														item.toLocaleLowerCase() as keyof typeof brandColor
+												  ],
 									}}
 								>
 									{item.toLocaleUpperCase()}
